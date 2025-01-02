@@ -66,8 +66,8 @@ bool isEmail(String str) {
 /// `{ 'protocols': ['http','https','ftp'], 'require_tld': true,
 /// 'require_protocol': false, 'allow_underscores': false,
 /// 'host_whitelist': false, 'host_blacklist': false }`.
-bool isURL(String str, [Map options]) {
-  if (str == null || str.length == 0 || str.length > 2083 ||
+bool isURL(String str, [Map options = const {}]) {
+  if (str.length == 0 || str.length > 2083 ||
       str.indexOf('mailto:') == 0) {
     return false;
   }
@@ -81,8 +81,7 @@ bool isURL(String str, [Map options]) {
 
   options = _merge(options, default_url_options);
 
-  var protocol, user, pass, auth, host, hostname, port, port_str, path, query,
-      hash, split;
+  var protocol, user, pass, auth, host, hostname, port, port_str, path, query, hash, split;
 
   // check protocol
   split = str.split('://');
@@ -302,7 +301,7 @@ bool isDivisibleBy(String str, n) {
 
 
 /// check if the string is null
-bool isNull(String str) {
+bool isNull(String? str) {
   return str == null || str.length == 0;
 }
 
@@ -310,7 +309,7 @@ bool isNull(String str) {
 /// check if the string's length falls in a range
 ///
 /// Note: this function takes into account surrogate pairs.
-bool isLength(String str, int min, [int max]) {
+bool isLength(String str, int min, [int? max]) {
   List surrogatePairs = _surrogatePairsRegExp.allMatches(str).toList();
   int len = str.length - surrogatePairs.length;
   return len >= min && (max == null || len <= max);
@@ -318,7 +317,7 @@ bool isLength(String str, int min, [int max]) {
 
 
 /// check if the string's length (in bytes) falls in a range.
-bool isByteLength(String str, int min, [int max]) {
+bool isByteLength(String str, int min, [int? max]) {
   return str.length >= min && (max == null || str.length <= max);
 }
 
@@ -331,7 +330,7 @@ bool isUUID(String str, [version]) {
     version = version.toString();
   }
 
-  RegExp pat = _uuid[version];
+  RegExp? pat = _uuid[version];
   return (pat != null && pat.hasMatch(str.toUpperCase()));
 }
 
@@ -481,7 +480,7 @@ bool isISBN(String str, [version]) {
 /// check if the string is valid JSON
 bool isJSON(str) {
   try {
-    JSON.decode(str);
+    json.decode(str);
   } catch (e) {
     return false;
   }

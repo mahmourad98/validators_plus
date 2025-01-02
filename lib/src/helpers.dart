@@ -11,10 +11,7 @@ _shift(List l) {
   return null;
 }
 
-Map _merge(Map obj, defaults) {
-  if (obj == null) {
-    obj = new Map();
-  }
+Map _merge(Map obj, [Map defaults = const {}]) {
   defaults.forEach((key, val) => obj.putIfAbsent(key, () => val));
   return obj;
 }

@@ -1,5 +1,7 @@
 library validator_test;
 
+import 'dart:math';
+
 import 'package:validator/validator.dart' as v;
 
 
@@ -145,7 +147,7 @@ void testIsURL() {
       'http://www.foo---bar.com/',
       'http://www.foo_bar.com/',
       '',
-      'http://foobar.com/' + new List(2083).join('f'),
+      'http://foobar.com/' + List.generate(2083, (int i) => Random(i)).join('f'),
       'http://*.foo.com',
       '*.foo.com',
       '!.foo.com',
